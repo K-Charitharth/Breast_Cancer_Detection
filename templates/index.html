@@ -2,38 +2,39 @@
 <html>
 <head>
     <title>Breast Cancer Detection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Breast Cancer Detection</h1>
     <p>Please enter the values for the following features:</p>
     <form action="{{ url_for('home') }}" method="post">
         <label for="clump_thickness">Clump Thickness:</label>
-        <input type="text" id="clump_thickness" name="clump_thickness"><br>
+        <input type="number" id="clump_thickness" name="clump_thickness" min=1 max=10><br>
 
         <label for="unif_cell_size">Uniformity of Cell Size:</label>
-        <input type="text" id="unif_cell_size" name="unif_cell_size"><br>
+        <input type="number" id="unif_cell_size" name="unif_cell_size" min=1 max=10><br>
 
         <label for="unif_cell_shape">Uniformity of Cell Shape:</label>
-        <input type="text" id="unif_cell_shape" name="unif_cell_shape"><br>
+        <input type="number" id="unif_cell_shape" name="unif_cell_shape" min=1 max=10><br>
 
         <label for="marg_adhesion">Marginal Adhesion:</label>
-        <input type="text" id="marg_adhesion" name="marg_adhesion"><br>
+        <input type="number" id="marg_adhesion" name="marg_adhesion" min=1 max=10><br>
 
         <label for="single_epith_cell_size">Single Epithelial Cell Size:</label>
-        <input type="text" id="single_epith_cell_size" name="single_epith_cell_size"><br>
+        <input type="number" id="single_epith_cell_size" name="single_epith_cell_size" min=1 max=10><br>
 
         <label for="bare_nuclei">Bare Nuclei:</label>
-        <input type="text" id="bare_nuclei" name="bare_nuclei"><br>
+        <input type="number" id="bare_nuclei" name="bare_nuclei" min=1 max=10><br>
 
         <label for="bland_chrom">Bland Chromatin:</label>
-        <input type="text" id="bland_chrom" name="bland_chrom"><br>
+        <input type="number" id="bland_chrom" name="bland_chrom" min=1 max=10><br>
 
         <label for="norm_nucleoli">Normal Nucleoli:</label>
-        <input type="text" id="norm_nucleoli" name="norm_nucleoli"><br>
+        <input type="number" id="norm_nucleoli" name="norm_nucleoli" min=1 max=10><br>
 
         <label for="mitoses">Mitoses:</label>
-        <input type="text" id="mitoses" name="mitoses"><br>
-
+        <input type="number" id="mitoses" name="mitoses" min=1 max=10><br>
+        <br>
         <input type="submit" value="Predict">
     </form>
     {% if diagnosis %}

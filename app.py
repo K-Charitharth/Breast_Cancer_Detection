@@ -1,28 +1,20 @@
 from flask import Flask, render_template, request
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-import numpy as np
+from model import preprocess_data, train_model, save_model, pd
+import joblib
 
 app = Flask(__name__)
 
-# Load the breast cancer dataset
-df = pd.read_csv('breast_cancer_detection.csv')
-df.replace('?', np.nan, inplace = True)
-df.dropna(inplace=True)
-df.drop(['id'], axis = 1, inplace = True)
-df['class'].replace(2,0, inplace = True)
-df['class'].replace(4,1, inplace = True)
+file_name = 'breast_cancer_detection.csv'
 
-# Preprocess the dataset
-X = df.drop('class', axis=1)
-y = df['class']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = preprocess_data(file_name)
+model = train_model(X_train, y_train)
 
-# Train the model
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
+# Save the trained model to a file
+model_file = 'model.joblib'
+save_model(model, model_file)
+
+# Load the trained model from the file
+loaded_model = joblib.load(model_file)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -39,17 +31,7 @@ def home():
         mitoses = request.form['mitoses']
 
         try:
-            # Convert user input to floats
-            clump_thickness = float(clump_thickness)
-            unif_cell_size = float(unif_cell_size)
-            unif_cell_shape = float(unif_cell_shape)
-            marg_adhesion = float(marg_adhesion)
-            single_epith_cell_size = float(single_epith_cell_size)
-            bare_nuclei = float(bare_nuclei)
-            bland_chrom = float(bland_chrom)
-            norm_nucleoli = float(norm_nucleoli)
-            mitoses = float(mitoses)
-
+            
             # Create a new DataFrame with user input
             new_data = pd.DataFrame({
                 'clump_thickness': [clump_thickness],
@@ -64,7 +46,8 @@ def home():
             })
 
             # Make predictions using the trained model
-            prediction = model.predict(new_data)[0]
+            # model = joblib.load('model.joblib')
+            prediction = loaded_model.predict(new_data)[0]
 
             # Convert the prediction (0 or 1) to diagnosis ('Malignant' or 'Benign')
             diagnosis = 'Malignant' if prediction == 1 else 'Benign'
@@ -77,4 +60,4 @@ def home():
         return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
