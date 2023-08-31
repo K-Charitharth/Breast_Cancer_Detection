@@ -29,7 +29,7 @@ This project focuses on developing an accurate and scalable solution for breast 
 3. Run the Flask web application: python app.py
 4. Access the application in your web browser at `http://localhost:5000`.
 
-# Docker deployment
+## Docker deployment
 1. Docker build: docker build -t breast_cancer_detection:latest .
 2. Run the container: docker run -d -p HOST_PORT:5000 breast_cancer_detection:latest
 
