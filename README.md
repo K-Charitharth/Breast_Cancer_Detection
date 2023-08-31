@@ -1,6 +1,6 @@
 # Breast Cancer Detection
 
-![Project Logo](images/project_logo.png)
+![Breast Cancer Detection Logo](images/logo.png)
 
 Predicting breast cancer tumor malignancy through a Flask web application integrated with Docker.
 
@@ -30,8 +30,8 @@ This project focuses on developing an accurate and scalable solution for breast 
 4. Access the application in your web browser at `http://localhost:5000`.
 
 # Docker deployment
-Docker build: docker build -t breast_cancer_detection:latest .
-Run the container: docker run -d -p HOST_PORT:5000 breast_cancer_detection:latest
+1. Docker build: docker build -t breast_cancer_detection:latest .
+2. Run the container: docker run -d -p HOST_PORT:5000 breast_cancer_detection:latest
 
 ## License
 
@@ -39,9 +39,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contributors
 
-- Your Name
-- Your Co-author's Name (if applicable)
-- ...
+- Kothakota Charitharth
 
 Feel free to contribute, provide feedback, or report issues.
 
